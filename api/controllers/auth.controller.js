@@ -1,7 +1,7 @@
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
   const { username, password, email } = req.body;
   if (
     !username ||
@@ -30,10 +30,7 @@ export const signup = async (req, res) => {
       message: "Signup successful",
     });
   } catch (err) {
-    console.log("auth controller err", err);
-    res.status(500).json({
-      message: err.message,
-    });
+    next(err);
   }
 };
 
